@@ -1,0 +1,12 @@
+# data
+data/*
+
+# model weights
+pretrained/keras/*
+pretrained/js/*/*.bin
+
+# auxiliaries
+node_modules
+.vscode
+*/__pycache__
+
