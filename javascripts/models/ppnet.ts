@@ -86,5 +86,5 @@ export async function PPNet (cfg: any): Promise<tf.LayersModel> {
         units: config.numClasses
     }).apply(prototype_activations) as tf.SymbolicTensor;
 
-    return tf.model({ inputs: inputs, outputs: [logits, minDistances]});
+    return tf.model({ inputs: inputs, outputs: [logits]});
 }

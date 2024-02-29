@@ -57,7 +57,7 @@ async function buildDataset(imagePaths: string[], labels: number[], indices: num
             const label = labels[indices[i]];
             const labelOutput = { 
                 'logits': tf.tensor(label), 
-                'min_distances': tf.tensor(label)
+                // 'min_distances': tf.tensor(label)
             }
             yield labelOutput;
         }

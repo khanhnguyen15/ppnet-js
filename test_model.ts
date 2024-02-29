@@ -1,10 +1,10 @@
 import Rand from 'rand-seed';
 
 import * as tf from '@tensorflow/tfjs-node';
-import { DataSplit } from './src/data_prep/image_loader';
-import { loadData, loadTrainAndVal } from './src/data_prep/birds_data';
-import { logitLoss, protoPartLoss } from './src/models/loss';
-import { PPNet, convFeatures, getProtoClassIdx } from './src/models/ppnet';
+import { DataSplit } from './javascripts/data_prep/image_loader';
+import { loadData, loadTrainAndVal } from './javascripts/data_prep/birds_data';
+import { logitLoss, protoPartLoss } from './javascripts/models/loss';
+import { PPNet, convFeatures, getProtoClassIdx } from './javascripts/models/ppnet';
 
 async function getData(): Promise<DataSplit> {
     // const dir = './data/CUB_200_2011/images/';
@@ -24,8 +24,8 @@ async function main(): Promise<void> {
     const model = await getModel();
     const dataset = await getData();
 
-    const trainDataset = dataset['train'].batch(32);
-    const validDataset = dataset['validation']?.batch(32);
+    const trainDataset = dataset['train'].batch(10);
+    const validDataset = dataset['validation']?.batch(10);
 
     const protoClassId = await getProtoClassIdx({
         prototypeShape: [200, 1, 1, 128],
@@ -42,7 +42,7 @@ async function main(): Promise<void> {
     model.compile(
         {
             optimizer: 'adam',
-            loss: [logitLoss, ppLoss],
+            loss: ['categoricalCrossentropy'],
             // loss: logitLoss,
             metrics: ['accuracy']
         }
